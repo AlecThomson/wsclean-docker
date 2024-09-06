@@ -24,7 +24,7 @@ RUN apt-get update && \
     python3-sphinx \
     wget \
     gpg \
-    python3-distutils \
+    python3-setuptools  \
     ca-certificates
 
 
