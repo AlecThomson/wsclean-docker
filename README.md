@@ -1,5 +1,7 @@
 # WSCLEAN Docker
-Simple Dockerfiles for WSClean
+Simple Dockerfiles for WSClean.
+
+Versions older than v3.1 are not provided, since finding all the matching library versions is tricky. If you're in need of an older version, please feel free to place a PR with a working Dockerfile.
 
 ## WSclean
 WSClean is released under the GPL license version 3, and comes without any warranty.
