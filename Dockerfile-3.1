@@ -28,7 +28,7 @@ RUN apt-get -qq update && \
 # Install EveryBeam
 RUN mkdir /external && \
     cd /external && \
-    git clone --depth 1 --branch 0.3.1 https://git.astron.nl/RD/EveryBeam.git && \
+    git clone --depth 1 --branch v0.3.1 https://git.astron.nl/RD/EveryBeam.git && \
     mkdir /external/EveryBeam/build && cd /external/EveryBeam/build && \
     cmake ../ && \
     make install -j`nproc`
