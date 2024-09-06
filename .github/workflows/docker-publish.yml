@@ -24,7 +24,7 @@ jobs:
         with:
           images: |
             alecthomson/wsclean
-            ghcr.io/AlecThomson/wsclean-docker
+            ghcr.io/alecthomson/wsclean-docker
           tags: |
             type=schedule
             type=ref,event=branch
