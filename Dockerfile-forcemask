@@ -58,7 +58,7 @@ WORKDIR /wsclean
 RUN \
     mkdir /build && \
     cd /build && \
-    cmake ../wsclean && \
+    cmake ../wsclean -DPORTABLE=True && \
     make -j`nproc` && \
     make install && \
     wsclean --version
