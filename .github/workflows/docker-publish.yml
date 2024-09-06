@@ -59,7 +59,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             alecthomson/wsclean:${{ matrix.version }}
-            ghcr.io/AlecThomson/wsclean-docker:${{ matrix.version }}
+            ghcr.io/alecthomson/wsclean-docker:${{ matrix.version }}
           labels: |
             version=${{ matrix.version }}
           file: ./Dockerfile-${{ matrix.version }} # Use the version for Dockerfile path
