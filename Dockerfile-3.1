@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -qq update && \
     apt-get -qq install -y \
@@ -22,8 +22,20 @@ RUN apt-get -qq update && \
     python3-dev python3-numpy \
     python3-pytest \
     python3-sphinx \
+    wget \
+    gpg \
     python3-setuptools  \
-    wget
+    ca-certificates
+
+
+# Install latest CMake - required for ubuntu 20.04
+# Following https://apt.kitware.com/
+RUN test -f /usr/share/doc/kitware-archive-keyring/copyright || wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+RUN echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null
+RUN apt-get -qq update
+RUN test -f /usr/share/doc/kitware-archive-keyring/copyright || rm /usr/share/keyrings/kitware-archive-keyring.gpg
+RUN apt-get -qq install -y kitware-archive-keyring
+RUN apt-get -qq install -y cmake
 
 # Install EveryBeam
 RUN mkdir /external && \
