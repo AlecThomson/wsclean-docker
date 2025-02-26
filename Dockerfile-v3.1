@@ -25,7 +25,8 @@ RUN apt-get -qq update && \
     wget \
     gpg \
     python3-setuptools  \
-    ca-certificates
+    wget \
+    nvidia-cuda-toolkit
 
 
 # Install latest CMake - required for ubuntu 20.04
@@ -58,7 +59,8 @@ WORKDIR /wsclean
 RUN \
     mkdir /build && \
     cd /build && \
-    cmake ../wsclean -DPORTABLE=True && \
+    cmake ../wsclean -DPORTABLE=True \
+    -DCMAKE_PREFIX_PATH="/usr/local;/external/idg/build" -DIDGAPI_VERSION=1.2.0 && \
     make -j`nproc` && \
     make install && \
     wsclean --version

@@ -25,7 +25,8 @@ RUN apt-get -qq update && \
     wget \
     gpg \
     python3-setuptools  \
-    ca-certificates
+    wget \
+    nvidia-cuda-toolkit
 
 
 # Install latest CMake - required for ubuntu 20.04
@@ -48,9 +49,11 @@ RUN mkdir /external && \
 
 # Install IDG
 RUN cd /external && \
-    git clone --depth 1 https://git.astron.nl/RD/idg.git && \
+    git clone --depth 1 --branch 1.2.0 --single-branch https://git.astron.nl/RD/idg.git && \
     mkdir /external/idg/build && cd /external/idg/build && \
-    cmake ../ && \
+    cmake -DBUILD_LIB_CPU=ON \
+          -DBUILD_LIB_CUDA=ON \
+          -DBUILD_WITH_PYTHON=ON ../ && \
     make install -j`nproc`
 
 # Install WSClean
@@ -59,7 +62,8 @@ WORKDIR /wsclean
 RUN \
     mkdir /build && \
     cd /build && \
-    cmake ../wsclean -DPORTABLE=True && \
+    cmake ../wsclean -DPORTABLE=True \
+    -DCMAKE_PREFIX_PATH="/usr/local;/external/idg/build" -DIDGAPI_VERSION=1.2.0 && \
     make -j`nproc` && \
     make install && \
     wsclean --version
