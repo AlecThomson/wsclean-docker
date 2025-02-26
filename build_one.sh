@@ -8,9 +8,18 @@ if [ ! -f $dockerfile ]; then
     exit 1
 fi
 
+# get tag from dockerfile name
+# if just Dockerfile, tag is "latest"
+tag=${dockerfile#Dockerfile-}
+if [ "$tag" == "Dockerfile" ]; then
+    tag="latest"
+fi
+
+echo "Building $dockerfile with tag $tag"
+
 docker build \
     --progress=plain \
     --platform linux/amd64 \
-    -t alecthomson/wsclean:${dockerfile#Dockerfile-} \
+    -t alecthomson/wsclean:$tag \
     . \
     -f $dockerfile
