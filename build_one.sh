@@ -11,6 +11,6 @@ fi
 docker build \
     --progress=plain \
     --platform linux/amd64 \
-    -t alecthomson/wsclean:v${dockerfile#Dockerfile-} \
+    -t alecthomson/wsclean:${dockerfile#Dockerfile-} \
     . \
     -f $dockerfile

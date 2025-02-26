@@ -10,7 +10,7 @@ fi
 
 docker build \
     --platform linux/amd64 \
-    -t alecthomson/wslcean:v${dockerfile#Dockerfile-} \
+    -t alecthomson/wslcean:${dockerfile#Dockerfile-} \
     . \
     -f $dockerfile \
     --push
